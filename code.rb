@@ -1,6 +1,7 @@
 # Run the code. Change it so that it looks like the required output.
 
 require 'erb'
+require "pry"
 
 recipe = {
   name: "Roasted Brussels Sprouts",
@@ -23,19 +24,34 @@ recipe = {
   ]
 }
 
-recipe_title = "Recipe: #{recipe[:name]}"
+recipe_title = "RECIPE: #{recipe[:name]}\n"
 
-recipe_template = <<-ERB
+recipe_ingredients = "Ingredients\n-----------\n"
+recipe[:ingredients].each do |ingredient|
+  recipe_ingredients += "\n- #{ingredient}"
+end
 
-#=<%= "=" * recipe_title.length %>=#
-# <%= recipe_title %> #
-#=<%= "=" * recipe_title.length %>=#
+recipe_directions = "\nDirections\n-----------\n"
+recipe[:directions].each_with_index do |direction, index|
+  recipe_directions += "\n#{index + 1}. #{direction}"
+end
 
-Ingredients
------------
+# recipe_template = <<-ERB
+#
+# #=<%= "=" * recipe_title.length %>=#
+# # <%= recipe_title %> #
+# #=<%= "=" * recipe_title.length %>=#
 
-ERB
+# Ingredients
+# -----------
 
-erb = ERB.new(recipe_template)
-puts erb.result
-
+# ERB
+#
+# erb = ERB.new(recipe_template)
+# puts erb.result
+puts "="*recipe_title.length
+puts recipe_title
+puts "="*recipe_title.length
+puts
+puts recipe_ingredients
+puts recipe_directions
