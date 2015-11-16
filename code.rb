@@ -42,7 +42,7 @@ recipe_template = "
 <%= recipe_title %>
 <%= '=' * recipe_title.length %>
 
-<%= recipe_ingredients %>
+<%= recipe_ingredients  %>
 
 <%= recipe_directions %>
 
