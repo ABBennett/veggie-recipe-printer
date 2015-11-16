@@ -24,34 +24,38 @@ recipe = {
   ]
 }
 
-recipe_title = "RECIPE: #{recipe[:name]}\n"
+recipe_title = "RECIPE: #{recipe[:name]}"
 
-recipe_ingredients = "Ingredients\n-----------\n"
+recipe_ingredients = "\nIngredients\n-----------"
 recipe[:ingredients].each do |ingredient|
   recipe_ingredients += "\n- #{ingredient}"
 end
 
-recipe_directions = "\nDirections\n-----------\n"
+recipe_directions = "\nDirections\n-----------"
 recipe[:directions].each_with_index do |direction, index|
   recipe_directions += "\n#{index + 1}. #{direction}"
 end
 
-# recipe_template = <<-ERB
-#
-# #=<%= "=" * recipe_title.length %>=#
-# # <%= recipe_title %> #
-# #=<%= "=" * recipe_title.length %>=#
+recipe_template = "
 
-# Ingredients
-# -----------
+<%= '=' * recipe_title.length %>
+<%= recipe_title %>
+<%= '=' * recipe_title.length %>
 
-# ERB
-#
-# erb = ERB.new(recipe_template)
+<%= recipe_ingredients %>
+
+<%= recipe_directions %>
+
+"
+
+
+
+erb = ERB.new(recipe_template)
+puts erb.result
 # puts erb.result
-puts "="*recipe_title.length
-puts recipe_title
-puts "="*recipe_title.length
-puts
-puts recipe_ingredients
-puts recipe_directions
+# puts "="*recipe_title.length
+# puts recipe_title
+# puts "="*recipe_title.length
+# puts
+# puts recipe_ingredients
+# puts recipe_directions
