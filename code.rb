@@ -24,38 +24,45 @@ recipe = {
   ]
 }
 
+#
+# recipe_ingredients = "\nIngredients\n-----------"
+# recipe[:ingredients].each do |ingredient|
+#   recipe_ingredients += "\n- #{ingredient}"
+# end
+#
+# recipe_directions = "\nDirections\n-----------"
+# recipe[:directions].each_with_index do |direction, index|
+#   recipe_directions += "\n#{index + 1}. #{direction}"
+# end
+
+
 recipe_title = "RECIPE: #{recipe[:name]}"
+ingredients = recipe[:ingredients]
+directions = recipe[:directions]
 
-recipe_ingredients = "\nIngredients\n-----------"
-recipe[:ingredients].each do |ingredient|
-  recipe_ingredients += "\n- #{ingredient}"
-end
+recipe_template = <<-ERB
 
-recipe_directions = "\nDirections\n-----------"
-recipe[:directions].each_with_index do |direction, index|
-  recipe_directions += "\n#{index + 1}. #{direction}"
-end
+#=<%= '=' * recipe_title.length %>=#
+# <%= recipe_title %> #
+#=<%= '=' * recipe_title.length %>=#
 
-recipe_template = "
-
-<%= '=' * recipe_title.length %>
-<%= recipe_title %>
-<%= '=' * recipe_title.length %>
-
-<%= recipe_ingredients  %>
-
-<%= recipe_directions %>
-
-"
+Ingredients
+-----------
+<% ingredients.each do |ingredient| %>
+- <%= ingredient -%>
+<% end %>
 
 
+Directions
+----------
+<% count = 0 %>
+<% directions.each do |direction| %>
+<%= count += 1%>. <%= direction %>
+<% end %>
 
-erb = ERB.new(recipe_template)
+ERB
+
+
+
+erb = ERB.new(recipe_template, nil, '-')
 puts erb.result
-# puts erb.result
-# puts "="*recipe_title.length
-# puts recipe_title
-# puts "="*recipe_title.length
-# puts
-# puts recipe_ingredients
-# puts recipe_directions
